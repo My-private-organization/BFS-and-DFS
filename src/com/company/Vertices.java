@@ -11,8 +11,7 @@ public class Vertices {
         edges = new ArrayList<>();
     }
 
-    public void addNewEdgeToVertices(int edge)
-    {
+    public void addNewEdgeToVertices( int edge ) {
         this.edges.add(edge);
     }
 

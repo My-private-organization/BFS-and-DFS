@@ -48,12 +48,9 @@ public class Main {
 
 
         //for proper checking of unsorted input
-        for(int i=0; i<arr[3]; i++)
-        {
-            for(int j=i+1; j<arr[3]; j++)
-            {
-                if(cityFriends[j][1] < cityFriends[i][1])
-                {
+        for (int i = 0; i < arr[3]; i++) {
+            for (int j = i + 1; j < arr[3]; j++) {
+                if (cityFriends[j][1] < cityFriends[i][1]) {
                     int a = cityFriends[j][0];
                     int b = cityFriends[j][1];
 
@@ -71,8 +68,7 @@ public class Main {
 
     }
 
-    private static void solveUsingBFS( int[] arr, Graph graph, int[][] cityFriends, int[][] cityPieces )
-    {
+    private static void solveUsingBFS( int[] arr, Graph graph, int[][] cityFriends, int[][] cityPieces ) {
         for (int i = 0; i < arr[3]; i++) {
 
             List<Integer> visitedCities = graph.BFS_TraverSalOfGraph(cityFriends[i][0]);
@@ -83,7 +79,7 @@ public class Main {
 
                     if (cityPieces[j][0] == visited) {
 
-                        if(cityFriends[i][1] == 0)
+                        if (cityFriends[i][1] == 0)
                             cityPieces[j][0] = Integer.MIN_VALUE;
                         else
                             cityPieces[j][0] = -cityFriends[i][1];
@@ -104,30 +100,28 @@ public class Main {
 
             totalPieces += cityPieces[i][1];
 
-            if(cityPieces[i][0] < 0)
-            {
+            if (cityPieces[i][0] < 0) {
                 collectedPieces += cityPieces[i][1];
 
-                if(cityPieces[i][0] == Integer.MIN_VALUE)
+                if (cityPieces[i][0] == Integer.MIN_VALUE)
                     friends[0] += cityPieces[i][1];
                 else
                     friends[-(cityPieces[i][0])] += cityPieces[i][1];
             }
         }
 
-        if(totalPieces == collectedPieces)
+        if (totalPieces == collectedPieces)
             System.out.println("Mission Accomplished");
         else
             System.out.println("Mission Impossible");
 
         System.out.printf("%d out of %d pieces are collected\n", collectedPieces, totalPieces);
 
-        for(int i=0; i<arr[3]; i++)
+        for (int i = 0; i < arr[3]; i++)
             System.out.printf("%d collected %d pieces\n", i, friends[i]);
     }
 
-    private static void solveUsingDFS(int[] arr, Graph graph, int[][] cityFriends, int[][] cityPieces )
-    {
+    private static void solveUsingDFS( int[] arr, Graph graph, int[][] cityFriends, int[][] cityPieces ) {
         for (int i = 0; i < arr[3]; i++) {
 
             List<Integer> visitedCities = graph.DFS_TraverSalOfGraph(cityFriends[i][0]);
@@ -138,7 +132,7 @@ public class Main {
 
                     if (cityPieces[j][0] == visited) {
 
-                        if(cityFriends[i][1] == 0)
+                        if (cityFriends[i][1] == 0)
                             cityPieces[j][0] = Integer.MIN_VALUE;
                         else
                             cityPieces[j][0] = -cityFriends[i][1];
@@ -159,25 +153,24 @@ public class Main {
 
             totalPieces += cityPieces[i][1];
 
-            if(cityPieces[i][0] < 0)
-            {
+            if (cityPieces[i][0] < 0) {
                 collectedPieces += cityPieces[i][1];
 
-                if(cityPieces[i][0] == Integer.MIN_VALUE)
+                if (cityPieces[i][0] == Integer.MIN_VALUE)
                     friends[0] += cityPieces[i][1];
                 else
                     friends[-(cityPieces[i][0])] += cityPieces[i][1];
             }
         }
 
-        if(totalPieces == collectedPieces)
+        if (totalPieces == collectedPieces)
             System.out.println("Mission Accomplished");
         else
             System.out.println("Mission Impossible");
 
         System.out.printf("%d out of %d pieces are collected\n", collectedPieces, totalPieces);
 
-        for(int i=0; i<arr[3]; i++)
+        for (int i = 0; i < arr[3]; i++)
             System.out.printf("%d collected %d pieces\n", i, friends[i]);
     }
 
