@@ -46,6 +46,26 @@ public class Main {
             cityFriends[i][1] = f;
         }
 
+
+        //for proper checking of unsorted input
+        for(int i=0; i<arr[3]; i++)
+        {
+            for(int j=i+1; j<arr[3]; j++)
+            {
+                if(cityFriends[j][1] < cityFriends[i][1])
+                {
+                    int a = cityFriends[j][0];
+                    int b = cityFriends[j][1];
+
+                    cityFriends[j][0] = cityFriends[i][0];
+                    cityFriends[j][1] = cityFriends[i][1];
+
+                    cityFriends[i][0] = a;
+                    cityFriends[i][1] = b;
+                }
+            }
+        }
+
         solveUsingBFS(arr, graph, cityFriends, cityPieces);
         solveUsingDFS(arr, graph, cityFriends, cityPieces);
 
@@ -57,14 +77,28 @@ public class Main {
 
             List<Integer> visitedCities = graph.BFS_TraverSalOfGraph(cityFriends[i][0]);
 
-            cityPlacesMarker(arr, cityFriends, cityPieces, i, visitedCities);
+            for (int visited : visitedCities) {
+
+                for (int j = 0; j < arr[2]; j++) {
+
+                    if (cityPieces[j][0] == visited) {
+
+                        if(cityFriends[i][1] == 0)
+                            cityPieces[j][0] = Integer.MIN_VALUE;
+                        else
+                            cityPieces[j][0] = -cityFriends[i][1];
+
+                        break;
+                    }
+                }
+            }
+
         }
 
         int totalPieces = 0;
         int collectedPieces = 0;
 
         int[] friends = new int[arr[3]];
-
 
         for (int i = 0; i < arr[2]; i++) {
 
@@ -97,7 +131,22 @@ public class Main {
         for (int i = 0; i < arr[3]; i++) {
 
             List<Integer> visitedCities = graph.DFS_TraverSalOfGraph(cityFriends[i][0]);
-            cityPlacesMarker(arr, cityFriends, cityPieces, i, visitedCities);
+
+            for (int visited : visitedCities) {
+
+                for (int j = 0; j < arr[2]; j++) {
+
+                    if (cityPieces[j][0] == visited) {
+
+                        if(cityFriends[i][1] == 0)
+                            cityPieces[j][0] = Integer.MIN_VALUE;
+                        else
+                            cityPieces[j][0] = -cityFriends[i][1];
+
+                        break;
+                    }
+                }
+            }
         }
 
         int totalPieces = 0;
@@ -132,23 +181,4 @@ public class Main {
             System.out.printf("%d collected %d pieces\n", i, friends[i]);
     }
 
-    private static void cityPlacesMarker( int[] arr, int[][] cityFriends, int[][] cityPieces, int i,
-                                          List<Integer> visitedCities )
-    {
-        for (int visited : visitedCities) {
-
-            for (int j = 0; j < arr[2]; j++) {
-
-                if (cityPieces[j][0] == visited) {
-
-                    if(cityFriends[i][1] == 0)
-                        cityPieces[j][0] = Integer.MIN_VALUE;
-                    else
-                        cityPieces[j][0] = -cityFriends[i][1];
-
-                    break;
-                }
-            }
-        }
-    }
 }
