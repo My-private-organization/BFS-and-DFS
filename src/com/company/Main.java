@@ -1,6 +1,5 @@
 package com.company;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -66,19 +65,28 @@ public class Main {
                         break;
                     }
                 }
-
             }
         }
 
         int totalPieces = 0;
         int collectedPieces = 0;
 
+        int[] friends = new int[arr[3]];
+
+
         for (int i = 0; i < arr[2]; i++) {
 
             totalPieces += cityPieces[i][1];
 
             if(cityPieces[i][0] < 0)
+            {
                 collectedPieces += cityPieces[i][1];
+
+                if(cityPieces[i][0] == Integer.MIN_VALUE)
+                    friends[0] += cityPieces[i][1];
+                else
+                    friends[-(cityPieces[i][0])] += cityPieces[i][1];
+            }
         }
 
         if(totalPieces == collectedPieces)
@@ -86,7 +94,9 @@ public class Main {
         else
             System.out.println("Mission Impossible");
 
-        System.out.printf("%d out of %d pieces are collected", collectedPieces, totalPieces);
+        System.out.printf("%d out of %d pieces are collected\n", collectedPieces, totalPieces);
 
+        for(int i=0; i<arr[3]; i++)
+            System.out.printf("%d collected %d pieces\n", i, friends[i]);
     }
 }
