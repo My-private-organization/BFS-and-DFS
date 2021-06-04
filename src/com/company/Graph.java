@@ -29,10 +29,10 @@ public class Graph {
         verticesList.get(c2).addNewEdgeToVertices(c1);
     }
 
-    public void BFS_TraverSalOfGraph(int startVertices)
+    public List<Integer> BFS_TraverSalOfGraph(int startVertices)
     {
-
         boolean[] visited = new boolean[numberOfVertices];
+        List<Integer> visitedCity = new ArrayList<>();
         Queue<Integer> queue = new LinkedList<>();
 
         visited[startVertices]=true;
@@ -41,7 +41,7 @@ public class Graph {
         while (queue.size() != 0)
         {
             startVertices = queue.poll();
-            System.out.print(startVertices + " ");
+            visitedCity.add(startVertices);
 
             for (int n : verticesList.get(startVertices).getEdges()) {
                 if (!visited[n]) {
@@ -50,6 +50,8 @@ public class Graph {
                 }
             }
         }
+
+        return visitedCity;
     }
 
 
@@ -62,6 +64,7 @@ public class Graph {
             if (!visited[n])
                 DFSUtil(n, visited);
         }
+
     }
 
     public void DFS_TraverSalOfGraph(int startVertices)
