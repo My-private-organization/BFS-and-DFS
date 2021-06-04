@@ -55,22 +55,25 @@ public class Graph {
     }
 
 
-    void DFSUtil( int startVertices, boolean[] visited )
+    private void DFSUtil( int startVertices, boolean[] visited, List<Integer> visitedCity )
     {
         visited[startVertices] = true;
-        System.out.print(startVertices + " ");
+        visitedCity.add(startVertices);
 
         for (int n : verticesList.get(startVertices).getEdges()) {
             if (!visited[n])
-                DFSUtil(n, visited);
+                DFSUtil(n, visited, visitedCity);
         }
 
     }
 
-    public void DFS_TraverSalOfGraph(int startVertices)
+    public List<Integer> DFS_TraverSalOfGraph(int startVertices)
     {
         boolean[] visited = new boolean[numberOfVertices];
-        DFSUtil(startVertices, visited);
+        final List<Integer> visitedCity = new ArrayList<>();
+        DFSUtil(startVertices, visited, visitedCity);
+
+        return visitedCity;
     }
 
 }
